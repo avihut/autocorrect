@@ -20,6 +20,7 @@ Cargo.lock
 
 # Build artifacts
 dict.fst
+data/test_dict.fst
 
 # Debug files
 *.log
