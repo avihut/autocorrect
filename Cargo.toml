@@ -5,10 +5,11 @@ edition = "2021"
 build   = "build.rs"
 
 [dependencies]
-fst        = "0.4"        # FST + Levenshtein automata   [oai_citation:0‡Crates.io](https://crates.io/crates/fst?utm_source=chatgpt.com)
+fst        = { version = "0.4", features = ["levenshtein"] }
 memmap2    = "0.9"
 once_cell  = "1.19"
 anyhow     = "1.0"
 
 [build-dependencies]
-fst = "0.4"               # the builder API is the same
+fst = { version = "0.4", features = ["levenshtein"] }
+anyhow = "1.0"

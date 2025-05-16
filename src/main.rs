@@ -1,4 +1,4 @@
-use std::io::{self, Write};
+use std::io::{self, Write, Read};
 use autocorrect::{dictionary, suggest};
 
 fn main() -> anyhow::Result<()> {

@@ -1,0 +1,16 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+Project Name: Autocorrect
+Description:
+Autocorrect is a lightweight, high-performance Rust library and CLI tool that turns a simple TSV word-frequency list into a memory-mapped finite-state transducer (FST) for sub-millisecond, on-device fuzzy spelling correction. At build time it compiles your words.tsv (word + frequency) into a compact FST; at runtime it mmaps that FST and streams Levenshtein‐based suggestions as the user types. The result is a standalone binary (<2 MB) or embeddable library with:
+	•	Offline dictionary build via fst::MapBuilder in build.rs
+	•	Memory-mapped lexicon loader (dictionary.rs)
+	•	Real-time fuzzy search with configurable edit distance (suggest.rs)
+	•	Interactive REPL demo (main.rs) showing top-K suggestions per keystroke
+	•	Extensible hooks for touch-geometry weighting or quantized neural-LM reranking
+	•	Ultra-low resource footprint: <1 MB hot RAM, sub-1 ms latency, suitable for mobile embedding
+
+Use Autocorrect to power embeddable keyboards, CLI tools, code editors, or any Rust application needing fast, on-device word correction with minimal memory and storage overhead.

@@ -1,9 +1,10 @@
 use std::{env, fs, path::Path};
-use fst::{MapBuilder, IntoStreamer, Streamer};
+use fst::MapBuilder;           // only MapBuilder is needed
+use anyhow::Result;
 
 /// Converts a word-frequency TSV into a minimal FST
 /// whose *value* is the rank (0 = most frequent).
-fn main() -> anyhow::Result<()> {
+fn main() -> Result<()> {
     let out_dir = env::var("OUT_DIR")?;
     let dict_path = Path::new(&out_dir).join("dict.fst");
 
@@ -21,7 +22,6 @@ fn main() -> anyhow::Result<()> {
     // Build FST map: key = word, value = rank (0..N)
     let wtr = fs::File::create(&dict_path)?;
     let mut build = MapBuilder::new(wtr)?;
-
     for (rank, (word, _freq)) in words.into_iter().enumerate() {
         build.insert(word, rank as u64)?;
     }
