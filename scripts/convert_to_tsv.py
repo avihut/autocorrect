@@ -6,7 +6,8 @@ import sys
 
 def convert_to_tsv(input_file_path, output_file_path):
     """
-    Converts a file from '<word> <frequency>' format to '<word>\\t<frequency>' TSV format.
+    Converts a file from '<word> <frequency>' format to '<word>\t<frequency>' TSV format.
+    Handles extra whitespace and skips malformed lines.
     """
     try:
         with open(input_file_path, "r", encoding="utf-8") as infile, open(
@@ -16,10 +17,16 @@ def convert_to_tsv(input_file_path, output_file_path):
                 line = line.strip()
                 if not line:
                     continue
-                parts = line.rsplit(" ", 1)
+                # Split on the first whitespace
+                parts = line.split(None, 1)
                 if len(parts) == 2:
                     word, frequency = parts
-                    outfile.write(f"{word}\\t{frequency}\\n")
+                    word = word.strip()
+                    frequency = frequency.strip()
+                    if word and frequency.isdigit():
+                        outfile.write(f"{word}\t{frequency}\n")
+                    else:
+                        print(f"Skipping malformed line: {line}", file=sys.stderr)
                 else:
                     print(f"Skipping malformed line: {line}", file=sys.stderr)
         print(f"Successfully converted '{input_file_path}' to '{output_file_path}'")
@@ -39,7 +46,7 @@ if __name__ == "__main__":
         "input_file", help="Path to the input file (format: word frequency)"
     )
     parser.add_argument(
-        "output_file", help="Path to the output TSV file (format: word\\tfrequency)"
+        "output_file", help="Path to the output TSV file (format: word\tfrequency)"
     )
     args = parser.parse_args()
 

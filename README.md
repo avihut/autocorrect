@@ -44,7 +44,6 @@ Clone the repository and build in release mode:
 ```bash
 git clone https://github.com/yourusername/autocorrect.git
 cd autocorrect
-echo -e "the\t23135851162\nof\t13151942776\nand\t12997637966" > data/words.tsv
 cargo build --release
 ```
 
